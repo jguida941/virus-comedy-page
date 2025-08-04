@@ -1,6 +1,6 @@
 # virus-comedy-page
 
-A simple webpage experiment.
+A simple webpage experiment with visual effects.
 
 ## Demo
 
