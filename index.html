@@ -144,9 +144,93 @@
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
     }
+    .seizure-mode {
+      animation: seizure 0.1s infinite;
+    }
+    
+    @keyframes seizure {
+      0% { filter: invert(0) hue-rotate(0deg) contrast(100%); }
+      25% { filter: invert(1) hue-rotate(90deg) contrast(200%); }
+      50% { filter: invert(0) hue-rotate(180deg) contrast(50%); }
+      75% { filter: invert(1) hue-rotate(270deg) contrast(150%); }
+      100% { filter: invert(0) hue-rotate(360deg) contrast(100%); }
+    }
+    
+    .glitch {
+      animation: glitch 0.3s infinite;
+    }
+    
+    @keyframes glitch {
+      0% { transform: translate(0); filter: blur(0); }
+      20% { transform: translate(-5px, 5px); filter: blur(1px); }
+      40% { transform: translate(-5px, -5px); filter: blur(0); }
+      60% { transform: translate(5px, 5px); filter: blur(2px); }
+      80% { transform: translate(5px, -5px); filter: blur(0); }
+      100% { transform: translate(0); filter: blur(0); }
+    }
+    
+    .screen-tear {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0,255,0,0.03),
+        rgba(0,255,0,0.03) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+      z-index: 99999;
+      mix-blend-mode: screen;
+    }
+    
+    .static-noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 99998;
+      pointer-events: none;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence baseFrequency="0.9"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.5"/></svg>');
+    }
+    
+    .bsod {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0000AA;
+      color: white;
+      font-family: 'Courier New', monospace;
+      padding: 50px;
+      z-index: 100000;
+      display: none;
+      font-size: 16px;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
+  <div class="screen-tear"></div>
+  <div class="static-noise" id="static"></div>
+  <div class="bsod" id="bsod">
+    <h2 style="background: #888; padding: 5px; margin: 0;">Windows</h2>
+    <p>A problem has been detected and Windows has been shut down to prevent damage to your computer.</p>
+    <p>VIRUS_COMEDY_OVERLOAD</p>
+    <p>If this is the first time you've seen this Stop error screen, restart your computer. If this screen appears again, follow these steps:</p>
+    <p>Check to make sure you have adequate disk space. If a driver is identified in the Stop message, disable the driver or check with the manufacturer for driver updates. Try changing video adapters.</p>
+    <p>Technical information:</p>
+    <p>*** STOP: 0x000000ED (0x80F128D0, 0xC000009C, 0x00000000, 0x00000000)</p>
+    <p>*** COMEDY.SYS - Address F86B5A89 base at F86B5000, DateStamp 3dd9919eb</p>
+    <p>Beginning dump of physical memory<br>Physical memory dump complete.<br>Contact your system administrator or technical support group for further assistance.</p>
+    <p style="margin-top: 40px;">PRESS ANY KEY TO CONTINUE...</p>
+  </div>
   <h1>☠ YOU GOT A VIRUS ☠</h1>
   <marquee behavior="alternate" scrollamount="20"><h2 class="rainbow-text">🚨 PANIC MODE ACTIVATED 🚨</h2></marquee>
   <div class="warning shaking">
@@ -498,6 +582,103 @@
     
     // Alert on page leave
     window.onbeforeunload = () => "WAIT! THE VIRUS ISN'T DONE YET! 😱";
+    
+    // SEIZURE MODE AND SCREEN EFFECTS
+    let seizureActive = false;
+    let glitchActive = false;
+    
+    // Random screen seizures
+    setInterval(() => {
+      if (Math.random() < 0.1 && !seizureActive) {
+        seizureActive = true;
+        document.body.classList.add('seizure-mode');
+        
+        // Flash static
+        const static = document.getElementById('static');
+        static.style.opacity = '0.8';
+        
+        // Screen shake
+        let shakeCount = 0;
+        const shakeInterval = setInterval(() => {
+          document.body.style.transform = `translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
+          shakeCount++;
+          if (shakeCount > 20) {
+            clearInterval(shakeInterval);
+            document.body.style.transform = '';
+            document.body.classList.remove('seizure-mode');
+            static.style.opacity = '0';
+            seizureActive = false;
+          }
+        }, 50);
+        
+        // Strobe effect
+        const strobe = setInterval(() => {
+          document.body.style.backgroundColor = ['red', 'blue', 'green', 'white', 'black'][Math.floor(Math.random() * 5)];
+        }, 100);
+        
+        setTimeout(() => {
+          clearInterval(strobe);
+          document.body.style.backgroundColor = 'black';
+        }, 2000);
+      }
+    }, 5000);
+    
+    // Random BSOD
+    setInterval(() => {
+      if (Math.random() < 0.05) {
+        const bsod = document.getElementById('bsod');
+        bsod.style.display = 'block';
+        
+        // Hide everything else
+        document.body.style.visibility = 'hidden';
+        bsod.style.visibility = 'visible';
+        
+        // Fake reboot after 3 seconds
+        setTimeout(() => {
+          bsod.style.display = 'none';
+          document.body.style.visibility = 'visible';
+          
+          // Reboot sequence
+          document.body.innerHTML = '<div style="color: white; font-family: monospace; padding: 20px;"><p>REBOOTING...</p><p>LOADING COMEDY.SYS...</p><p>STARTING WINDOWS 95...</p></div>';
+          
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
+        }, 3000);
+      }
+    }, 15000);
+    
+    // Glitch entire page
+    setInterval(() => {
+      if (Math.random() < 0.2) {
+        document.body.classList.add('glitch');
+        setTimeout(() => {
+          document.body.classList.remove('glitch');
+        }, 300);
+      }
+    }, 2000);
+    
+    // Random screen tears
+    setInterval(() => {
+      const tear = document.querySelector('.screen-tear');
+      tear.style.height = Math.random() * 100 + '%';
+      tear.style.top = Math.random() * 50 + '%';
+    }, 1000);
+    
+    // Critical error sounds
+    function criticalError() {
+      // Multiple beeps
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => beep(), i * 100);
+      }
+    }
+    
+    // Trigger critical errors randomly
+    setInterval(() => {
+      if (Math.random() < 0.1) {
+        criticalError();
+      }
+    }, 8000);
   </script>
 </body>
 </html>
