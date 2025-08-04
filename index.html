@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YOU GOT A VIRUS</title>
+  <style>
+    body {
+      background-color: black;
+      color: lime;
+      font-family: monospace;
+      margin: 0;
+      padding: 20px;
+      animation: blink-border 1s infinite alternate, rotate-screen 20s infinite linear;
+      overflow: hidden;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><text y="40" font-size="40">🔥</text></svg>'), auto;
+    }
+
+    @keyframes blink-border {
+      from { box-shadow: 0 0 20px red; }
+      to { box-shadow: 0 0 20px yellow; }
+    }
+    
+    @keyframes rotate-screen {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(1deg); }
+    }
+
+    h1 {
+      color: red;
+      font-size: 3em;
+      text-align: center;
+      animation: flicker 0.1s infinite alternate, bounce 0.5s infinite, spin 2s infinite linear;
+      position: relative;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.2); }
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .warning {
+      background: black;
+      border: 2px solid lime;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      font-size: 1.2em;
+    }
+
+    .progress {
+      background-color: #222;
+      border: 2px solid lime;
+      width: 100%;
+      height: 20px;
+      margin-top: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bar {
+      background-color: red;
+      height: 100%;
+      width: 0;
+      animation: loadbar 5s infinite;
+    }
+
+    @keyframes loadbar {
+      0% { width: 0%; }
+      50% { width: 100%; }
+      100% { width: 0%; }
+    }
+    
+    .random-emoji {
+      position: fixed;
+      font-size: 4em;
+      animation: float-around 3s infinite ease-in-out;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    @keyframes float-around {
+      0% { transform: translate(0, 100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translate(100vw, -100vh) rotate(720deg); opacity: 0; }
+    }
+    
+    .shaking {
+      animation: shake 0.1s infinite;
+    }
+    
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px) translateY(2px); }
+      50% { transform: translateX(5px) translateY(-2px); }
+      75% { transform: translateX(-3px) translateY(1px); }
+      100% { transform: translateX(0); }
+    }
+    
+    .rainbow-text {
+      background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 2s linear infinite;
+    }
+    
+    @keyframes rainbow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    
+    .popup {
+      position: fixed;
+      background: white;
+      color: black;
+      border: 3px solid red;
+      padding: 20px;
+      z-index: 10000;
+      animation: popup-dance 0.5s infinite;
+    }
+    
+    @keyframes popup-dance {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(5deg); }
+    }
+    
+    .blink {
+      animation: cursor-blink 1s infinite;
+    }
+    
+    @keyframes cursor-blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>☠ YOU GOT A VIRUS ☠</h1>
+  <marquee behavior="alternate" scrollamount="20"><h2 class="rainbow-text">🚨 PANIC MODE ACTIVATED 🚨</h2></marquee>
+  <div class="warning shaking">
+    <div style="background: black; color: lime; font-family: 'Courier New', monospace; padding: 10px; border: 1px solid lime; margin-bottom: 20px; height: 300px; overflow-y: auto;" id="terminal">
+      <div>C:\VIRUS> INITIALIZING SUPER MEGA VIRUS 9000...</div>
+      <div>C:\VIRUS> <span class="blink">_</span></div>
+    </div>
+    <p>Encrypting files: <span id="percent">0%</span></p>
+    <div class="progress">
+      <div class="bar"></div>
+    </div>
+    <p>Current Status: <span id="status" style="color: red; font-weight: bold;">HACKING THE MAINFRAME</span></p>
+    <p>Bank Account Balance: $<span id="balance">69,420.00</span> → $<span id="stolen">0.00</span></p>
+    <p>Press ALT + F4 to stop attack</p>
+    <p>Or send $999,999 in iTunes gift cards to:</p>
+    <p><code>totallylegit@princeofnigeria.biz</code></p>
+    <br>
+    <p style="color: yellow;">⚠️ WARNING: This virus is rated E for Everyone ⚠️</p>
+    <p style="font-size: 0.8em;">Side effects may include: Sudden urge to dance, speaking in binary, and uncontrollable laughter</p>
+  </div>
+  
+  <div id="chaos-container"></div>
+  
+  <button onclick="alert('ERROR 404: Brain not found!')" style="position: fixed; bottom: 20px; right: 20px; font-size: 2em; background: red; color: white; border: none; padding: 10px; cursor: pointer; animation: spin 1s infinite;">DONT CLICK ME</button>
+
+  <audio autoplay loop>
+    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+  </audio>
+
+  <script>
+    // Fake % animation
+    let percent = document.getElementById("percent");
+    let value = 0;
+    setInterval(() => {
+      value = (value + Math.floor(Math.random() * 7)) % 101;
+      percent.textContent = value + "%";
+    }, 150);
+    
+    // Terminal hacking simulation
+    const terminal = document.getElementById('terminal');
+    const hackingCommands = [
+      "GAY PRIDE! 🏳️‍🌈 INITIALIZING RAINBOW VIRUS...",
+      "WHY DID THE CHICKEN CROSS THE ROAD? TO HACK YOUR COMPUTER LOL",
+      "KNOCK KNOCK... WHO'S THERE? VIRUS. VIRUS WHO? VIRUS YOU ASKING?",
+      "YOUR MOM IS SO FAT... SHE NEEDS TWO IP ADDRESSES",
+      "DELETING YOUR HOMEWORK FOLDER... WAIT IT'S 500GB?!",
+      "WHAT'S BROWN AND STICKY? A STICK! ALSO YOUR KEYBOARD NOW",
+      "I JUST FLEW IN FROM THE DARK WEB AND BOY ARE MY ARMS TIRED",
+      "INSTALLING BING AS DEFAULT SEARCH ENGINE... MWAHAHAHA",
+      "WHY DON'T SCIENTISTS TRUST ATOMS? THEY MAKE UP EVERYTHING!",
+      "YOUR WIFI PASSWORD IS NOW 'POOPBUTT123'",
+      "CONVERTING ALL YOUR MUSIC TO KIDZ BOP VERSIONS...",
+      "I'M NOT A VIRUS, I'M A FEATURE!",
+      "REPLACING ALL FONTS WITH WINGDINGS... ♠♣♥♦",
+      "YOUR COMPUTER HAS LIGMA... LIGMA BALLS LMAOOO",
+      "DEEZ NUTS ARE NOW YOUR WALLPAPER",
+      "SPELL ICUP... I-C-U-P... HAHA YOU SAID YOU SEE ME PEE",
+      "IS YOUR REFRIGERATOR RUNNING? BETTER GO CATCH IT!",
+      "ORANGE YOU GLAD I DIDN'T SAY BANANA?",
+      "WHAT'S THE DIFFERENCE BETWEEN A VIRUS AND YOUR CODE? THE VIRUS WORKS!",
+      "INSTALLING INTERNET EXPLORER 6... THE HORROR!",
+      "YOUR PASSWORDS ARE NOW ALL 'PASSWORD123'",
+      "HACKING INTO THE MAINFRAME... JK I'M JUST OPENING CALCULATOR",
+      "CTRL+ALT+DELETE YOUR FEELINGS",
+      "DOWNLOADING CARS... WAIT THAT'S ILLEGAL",
+      "FOR THE GAYS! 🏳️‍🌈✨ PRIDE VIRUS COMPLETE!"
+    ];
+    
+    let commandIndex = 0;
+    setInterval(() => {
+      const newLine = document.createElement('div');
+      newLine.textContent = `C:\\VIRUS> ${hackingCommands[commandIndex % hackingCommands.length]}`;
+      terminal.insertBefore(newLine, terminal.lastElementChild);
+      
+      // Keep terminal scrolled to bottom
+      terminal.scrollTop = terminal.scrollHeight;
+      
+      // Limit terminal lines
+      if (terminal.children.length > 20) {
+        terminal.removeChild(terminal.children[0]);
+      }
+      
+      commandIndex++;
+      
+      // Make beeping noise
+      beep();
+    }, 1500);
+    
+    // Bank account "stealing" animation
+    let balance = 69420.00;
+    let stolen = 0.00;
+    const balanceEl = document.getElementById('balance');
+    const stolenEl = document.getElementById('stolen');
+    
+    setInterval(() => {
+      if (balance > 0) {
+        const steal = Math.min(balance, Math.random() * 1000);
+        balance -= steal;
+        stolen += steal;
+        balanceEl.textContent = balance.toFixed(2);
+        stolenEl.textContent = stolen.toFixed(2);
+      }
+    }, 500);
+    
+    // Status messages
+    const statusEl = document.getElementById('status');
+    const statuses = [
+      "HACKING THE MAINFRAME",
+      "ENHANCING... ENHANCE!",
+      "ACCESSING THE CLOUD ☁️",
+      "DOWNLOADING MORE RAM",
+      "DELETING SYSTEM32",
+      "RICKROLLING YOUR MOM",
+      "INSTALLING TOOLBARS",
+      "MINING DOGECOIN 🐕",
+      "YEETING YOUR FILES",
+      "VIBING WITH THE VIRUS",
+      "ACCESSING THE DARK WEB",
+      "ORDERING PIZZA 🍕",
+      "SUBSCRIBING YOU TO CAT FACTS"
+    ];
+    
+    setInterval(() => {
+      statusEl.textContent = statuses[Math.floor(Math.random() * statuses.length)];
+    }, 3000);
+    
+    // Sound effects
+    function beep() {
+      const audio = new Audio();
+      audio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBDGSy+7bi0ILF1+y4+2qWBQKQUSD5Xy335q+6XIAA==';
+      audio.volume = 0.1;
+      audio.play().catch(() => {});
+    }
+    
+    // Random "OH YEAH" sounds
+    const ohYeahPhrases = [
+      "PICKLE RICK!!!",
+      "BAZINGA!",
+      "WUBBA LUBBA DUB DUB!",
+      "SKIBIDI BOP MM DADA!",
+      "AMOGUS SUS!",
+      "E!",
+      "BOTTOM TEXT!",
+      "SOCIETY!",
+      "MONKE!",
+      "JUAN.",
+      "SHEEEEEESH!",
+      "NO CAP FR FR ON GOD!",
+      "BUSSIN BUSSIN!",
+      "IT'S MORBIN TIME!",
+      "OHIO MOMENT!",
+      "L + RATIO + YOU FELL OFF!",
+      "SKILL ISSUE!",
+      "NPC BEHAVIOR!",
+      "CAUGHT IN 4K!",
+      "EMOTIONAL DAMAGE!"
+    ];
+    
+    setInterval(() => {
+      if (Math.random() < 0.3) {
+        const yeahText = document.createElement('div');
+        yeahText.style.cssText = `
+          position: fixed;
+          font-size: ${Math.random() * 60 + 40}px;
+          color: ${['red', 'yellow', 'lime', 'cyan', 'magenta'][Math.floor(Math.random() * 5)]};
+          left: ${Math.random() * window.innerWidth}px;
+          top: ${Math.random() * window.innerHeight}px;
+          transform: rotate(${Math.random() * 360}deg);
+          font-weight: bold;
+          z-index: 9999;
+          pointer-events: none;
+        `;
+        yeahText.textContent = ohYeahPhrases[Math.floor(Math.random() * ohYeahPhrases.length)];
+        document.body.appendChild(yeahText);
+        
+        // Speak it!
+        if ('speechSynthesis' in window && Math.random() < 0.2) {
+          const utterance = new SpeechSynthesisUtterance(yeahText.textContent);
+          utterance.rate = Math.random() * 1.5 + 0.5;
+          utterance.pitch = Math.random() * 2;
+          window.speechSynthesis.speak(utterance);
+        }
+        
+        setTimeout(() => yeahText.remove(), 2000);
+      }
+    }, 1000);
+
+    // Rotate funny locations
+    const locations = [
+      "Your Mom's House",
+      "Behind the couch",
+      "The Shadow Realm",
+      "Chuck E. Cheese",
+      "Area 51",
+      "The Matrix",
+      "Flavortown",
+      "Your browser history"
+    ];
+    
+    const stealingItems = [
+      "Your sandwich recipes",
+      "Your embarrassing yearbook photos",
+      "Your Netflix password",
+      "Your collection of dad jokes",
+      "Your secret cookie stash",
+      "Your Pokémon cards",
+      "Your dignity",
+      "Your left socks"
+    ];
+    
+    const downloadingItems = [
+      "More RAM",
+      "The entire internet",
+      "Common sense",
+      "A girlfriend",
+      "Skills",
+      "Homework answers",
+      "Dancing abilities",
+      "Cat videos"
+    ];
+    
+    const installingItems = [
+      "Bonzi Buddy",
+      "Ask Jeeves",
+      "100,000 toolbars",
+      "Windows Vista",
+      "Comic Sans as system font",
+      "Clippy's revenge",
+      "A social life",
+      "MySpace"
+    ];
+
+    let locationEl = document.getElementById("location");
+    let stealingEl = document.getElementById("stealing");
+    let downloadingEl = document.getElementById("downloading");
+    let installingEl = document.getElementById("installing");
+    
+    let i = 0;
+    setInterval(() => {
+      locationEl.textContent = locations[i % locations.length];
+      stealingEl.textContent = stealingItems[i % stealingItems.length];
+      downloadingEl.textContent = downloadingItems[i % downloadingItems.length];
+      installingEl.textContent = installingItems[i % installingItems.length];
+      i++;
+    }, 2000);
+    
+    // ABSOLUTE CHAOS
+    const emojis = ['💩', '🔥', '👻', '🎺', '🦄', '🌮', '🍕', '🚀', '💀', '🤡', '🦖', '🥨', '🍌', '🎯', '🧲', '🎪'];
+    
+    // Random floating emojis
+    setInterval(() => {
+      const emoji = document.createElement('div');
+      emoji.className = 'random-emoji';
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 5000);
+    }, 300);
+    
+    // Random popup alerts
+    const popupMessages = [
+      "UR MOM GAY... WAIT THAT'S A GOOD THING 🏳️‍🌈",
+      "HELP I'M TRAPPED IN A VIRUS FACTORY",
+      "DO YOU HAVE GAMES ON YOUR PHONE?",
+      "I FORGOR 💀",
+      "NO BITCHES?",
+      "MAIDENLESS BEHAVIOR DETECTED",
+      "YOU KNOW WHO ELSE HAS A VIRUS? MY MOM!",
+      "SPELL ATTIC... A-T-T-I-C... BRUH",
+      "JOE MAMA HAS ENTERED THE CHAT",
+      "SUGMA VIRUS DETECTED... SUGMA BALLS",
+      "WENDY'S NUTS HIT YOUR CHIN",
+      "CANDICE VIRUS FINISH DOWNLOADING",
+      "ERROR 69: NICE",
+      "ERROR 420: BLAZE IT",
+      "WHO ASKED? + DIDN'T ASK + DON'T CARE",
+      "TOUCH GRASS.EXE NOT FOUND",
+      "DOWNLOADING GIRLFRIEND... ERROR: FILE TOO LARGE",
+      "YOUR VIBES ARE ABSOLUTELY RANCID",
+      "BEEP BOOP I'M A COMPUTER... OR AM I?",
+      "THIS VIRUS IS SPONSORED BY RAYCON EARBUDS"
+    ];
+    
+    // Create random popups
+    setInterval(() => {
+      const popup = document.createElement('div');
+      popup.className = 'popup';
+      popup.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+      popup.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+      popup.innerHTML = `
+        <h3 style="margin: 0;">⚠️ CRITICAL ALERT ⚠️</h3>
+        <p>${popupMessages[Math.floor(Math.random() * popupMessages.length)]}</p>
+        <button onclick="this.parentElement.remove()">OK BOOMER</button>
+      `;
+      document.body.appendChild(popup);
+      
+      // Auto remove after 5 seconds
+      setTimeout(() => popup.remove(), 5000);
+    }, 3000);
+    
+    // Make everything randomly disappear and reappear
+    setInterval(() => {
+      const elements = document.querySelectorAll('p, h1, h2, div');
+      const randomEl = elements[Math.floor(Math.random() * elements.length)];
+      randomEl.style.display = 'none';
+      setTimeout(() => {
+        randomEl.style.display = '';
+      }, 1000);
+    }, 2000);
+    
+    // Random background color flashes
+    setInterval(() => {
+      document.body.style.backgroundColor = ['black', 'darkred', 'darkblue', 'darkgreen', 'purple'][Math.floor(Math.random() * 5)];
+    }, 5000);
+    
+    // Add random text to page
+    const randomPhrases = [
+      "BEEP BOOP VIRUS NOISES",
+      "CTRL+ALT+DELETE YOUR FEELINGS",
+      "HAVE YOU TRIED TURNING IT OFF AND ON AGAIN?",
+      "THIS VIRUS RUNS ON DUNKIN'",
+      "SPONSORED BY RAID SHADOW LEGENDS",
+      "WE'VE BEEN TRYING TO REACH YOU ABOUT YOUR CAR'S EXTENDED WARRANTY",
+      "PRESS ANY KEY TO CONTINUE... WHERE'S THE ANY KEY?",
+      "VIRUS.EXE IS NOT RESPONDING... WOULD YOU LIKE TO SEND AN ERROR REPORT?",
+      "YOUR TRIAL OF LIFE HAS EXPIRED",
+      "ACHIEVEMENT UNLOCKED: GOT PRANKED"
+    ];
+    
+    setInterval(() => {
+      const text = document.createElement('div');
+      text.style.position = 'fixed';
+      text.style.color = ['lime', 'red', 'yellow', 'cyan', 'magenta'][Math.floor(Math.random() * 5)];
+      text.style.fontSize = Math.random() * 30 + 20 + 'px';
+      text.style.left = Math.random() * window.innerWidth + 'px';
+      text.style.top = Math.random() * window.innerHeight + 'px';
+      text.style.transform = `rotate(${Math.random() * 360}deg)`;
+      text.textContent = randomPhrases[Math.floor(Math.random() * randomPhrases.length)];
+      text.className = 'shaking';
+      document.body.appendChild(text);
+      setTimeout(() => text.remove(), 3000);
+    }, 1500);
+    
+    // Console spam
+    setInterval(() => {
+      console.log('%c' + emojis[Math.floor(Math.random() * emojis.length)].repeat(50), 'font-size: 20px');
+    }, 100);
+    
+    // Alert on page leave
+    window.onbeforeunload = () => "WAIT! THE VIRUS ISN'T DONE YET! 😱";
+  </script>
+</body>
+</html>
